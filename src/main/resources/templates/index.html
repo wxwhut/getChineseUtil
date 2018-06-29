@@ -1,0 +1,128 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <script th:src="@{jquery-3.3.1.js}" type="text/javascript"></script>
+    <!--<script th:src="@{bootstrap/js/bootstrap.js}" type="text/javascript"></script>-->
+    <!--<script th:src="@{bootstrap/js/bootstrap.bundle.js}" type="text/javascript"></script>-->
+    <!--<link th:href="@{bootstrap/css/bootstrap-theme.css}" rel="stylesheet"/>-->
+    <!--<link th:href="@{bootstrap/css/bootstrap-grid.css}" rel="stylesheet"/>-->
+    <!--<link th:href="@{bootstrap/css/bootstrap-reboot.css}" rel="stylesheet"/>-->
+    <!--<link th:href="@{bootstrap/css/bootstrap.css}" rel="stylesheet"/>-->
+</head>
+<body>
+<!--/*@thymesVar id="setting" type="com.zres.util.getChineseUtil.bean.Setting"*/-->
+<form class="form-horizontal" action="#" th:action="@{/index}" th:object="${setting}" method="post">
+
+    <fieldset>
+        <div class="control-group">
+
+            <!-- Text input-->
+
+            <div class="controls">
+                <label class="control-label">查询目录</label>
+                <input type="text" placeholder="默认桌面" class="input-xlarge" id="dirPath" name="dirPath"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <!-- Search input-->
+
+            <div class="controls">
+                <label class="control-label">生成目录</label>
+                <input type="text" placeholder="默认桌面" class="input-xlarge search-query" id="textPath" name="textPath"/>
+            </div>
+
+        </div>
+
+        <div class="control-group">
+
+            <!-- Text input-->
+
+            <div class="controls">
+                <label class="control-label">生成文件名</label>
+                <input type="text" placeholder="默认fileNote.txt" class="input-xlarge" id="textName" name="textName"/>
+            </div>
+        </div>
+   <div class="control-group">
+        <label class="control-label">要查询的文件类型</label>
+
+        <!-- Multiple Checkboxes -->
+        <div class="controls" id="file" name="file">
+            <!-- Inline Checkboxes -->
+            <label class="checkbox inline">
+                <input type="checkbox" value="JS" name="file"/>
+                JS
+            </label>
+            <label class="checkbox inline">
+                <input type="checkbox" value="JAVA" name="file"/>
+                JAVA
+            </label>
+            <label class="checkbox inline">
+                <input type="checkbox" value="XML" name="file"/>
+                XML
+            </label>
+            <label class="checkbox inline">
+                <input type="checkbox" value="HTML" name="file"/>
+                HTML
+            </label>
+            <label class="checkbox inline">
+                <input type="checkbox" value="PROPERTIES" name="file"/>
+                PROPERTIES
+            </label>
+        </div>
+    </div>
+        <div class="control-group">
+                <label class="control-label" >过滤文件</label>
+
+                <!-- Multiple Checkboxes -->
+                <div class="controls" id="filter" name="filter">
+                    <!-- Inline Checkboxes -->
+                    <label class="checkbox inline">
+                        <input type="checkbox" name="filter" value="twaver"/>
+                        twaver
+                    </label>
+                    <label class="checkbox inline">
+                        <input type="checkbox" name="filter" value="echarts"/>
+                        echarts
+                    </label>
+                    <label class="checkbox inline">
+                        <input type="checkbox" name="filter" value="fish-desktop-locale"/>
+                        fish-desktop-locale
+                    </label>
+                    <label class="checkbox inline">
+                        <input type="checkbox" name="filter" value="arcgis_js_api"/>
+                        arcgis_js_api
+                    </label>
+                    <label class="checkbox inline">
+                        <input type="checkbox" name="filter" value="city.data"/>
+                        city.data
+                    </label>
+                    <label class="checkbox inline">
+                        <input type="checkbox" name="filter" value="geoCoord.js"/>
+                        geoCoord.js
+                    </label>
+                    <label class="checkbox inline">
+                        <input type="checkbox" name="filter" value="layer\v3.0.3\demo.html"/>
+                        layer\v3.0.3\demo.html
+                    </label>
+                </div>
+            </div>
+        <button class="btn btn-outline-info btn-sm" type="submit">获取中文</button>
+        <button class="btn btn-outline-info btn-sm" type="reset">重置</button>
+    </fieldset>
+</form>
+
+<!--<div class="control-group">-->
+    <!--<label class="control-label">上传</label>-->
+
+    <!--&lt;!&ndash; File Upload &ndash;&gt;-->
+    <!--<div class="controls">-->
+        <!--<input class="input-file" id="fileInput" type="file"/>-->
+    <!--</div>-->
+<!--</div>-->
+<script>
+</script>
+</body>
+</html>
