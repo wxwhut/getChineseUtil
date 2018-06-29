@@ -1,5 +1,7 @@
 package com.zres.util.getChineseUtil.constant;
 
+import com.zres.util.getChineseUtil.bean.Setting;
+
 /**
  * Created by tallenty on 2018/6/7.
  */
@@ -55,19 +57,21 @@ public class Const {
         return annotationStr;
     }
 
-    public static boolean isValidFileType (String fileType) {
-        if("js,java,html,xml,properties".indexOf(fileType) > -1) {
-            return true;
+    public static boolean isValidFileType (String fileType, Setting setting) {
+        for(int i=0;i<setting.getFile().length;i++){
+            if(setting.getFile()[i].equalsIgnoreCase(fileType)){
+                return true;
+            }
         }
         return false;
     }
 
 
-    public static boolean isValidFilePath (String filePath) {
-        if(filePath.contains("twaver") || filePath.contains("echarts") || filePath.contains("fish-desktop-locale")
-                || (filePath.contains("arcgis_js_api")) || (filePath.contains("city.data")) || (filePath.contains("geoCoord.js"))
-                || (filePath.contains("layer\\v3.0.3\\demo.html"))) {
-            return false;
+    public static boolean isValidFilePath (String filePath,Setting setting) {
+        for(int i=0;i<=setting.getFilter().length;i++) {
+            if (filePath.contains(setting.getFilter()[i])) {
+                return false;
+            }
         }
         return true;
     }
