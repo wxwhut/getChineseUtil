@@ -31,14 +31,14 @@ public class GetChineseUtilApplication {
     public static void start(Setting setting){
         File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
         //设置路径和文件名，默认放在桌面
-        if(setting.getDirPath()=="") {
+        if(setting.getDirPath().equals("")) {
             setting.setDirPath(desktopDir.getAbsolutePath());
         }
-        if(setting.getTextPath()=="") {
+        if(setting.getTextPath().equals("")) {
           setting.setTextPath(desktopDir.getAbsolutePath());
         }
         //设置文件名，默认fileNote.txt
-        if(setting.getTextName()=="") {
+        if(setting.getTextName().equals("")) {
             setting.setTextPath("\\fileNote.txt");
         }else if(setting.getTextName().charAt(0)!='\\'){
             setting.setTextName('\\'+setting.getTextName());
@@ -55,11 +55,11 @@ public class GetChineseUtilApplication {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        readFile(setting.getDirPath());
+        readFile(setting.getDirPath(),setting);
         writer.println(result);
         writer.close();
     }
-    public static void readFile(String dir) {
+    public static void readFile(String dir,Setting setting) {
         File or = new File(dir);
         File[] files = or.listFiles();
         if(files != null) {
@@ -67,16 +67,16 @@ public class GetChineseUtilApplication {
             for(int i = 0; i < fileLength; i++) {
                 File file = files[i];
                 if(file.isFile()) {
-                    parseFile(file);
+                    parseFile(file,setting);
                 } else if(file.isDirectory()) {
-                    readFile(file.getAbsolutePath());
+                    readFile(file.getAbsolutePath(),setting);
                 }
             }
         }
     }
 
 
-    public static void parseFile(File file) {
+    public static void parseFile(File file,Setting setting) {
         String filePath = file.getAbsolutePath();
         InputStreamReader reader = null;
         try {
@@ -90,10 +90,10 @@ public class GetChineseUtilApplication {
             int lineNum = 0;
             String fileType = RegexUtil.getFileType(filePath);
             //只查找java，js，html，xml，properties文件
-            if(!Const.isValidFileType(fileType)) {
+            if(!Const.isValidFileType(fileType,setting)) {
                 return;
             }
-            if(!Const.isValidFilePath(filePath)) {
+            if(!Const.isValidFilePath(filePath,setting)) {
                 return;
             }
             boolean isBetweenAnnotation = false;
