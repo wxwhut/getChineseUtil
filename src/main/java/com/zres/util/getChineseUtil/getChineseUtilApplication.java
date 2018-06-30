@@ -1,4 +1,4 @@
-package com.zres.util.getChineseUtil.service;
+package com.zres.util.getChineseUtil;
 
 import com.zres.util.getChineseUtil.bean.Setting;
 import com.zres.util.getChineseUtil.constant.Const;
@@ -19,12 +19,12 @@ import java.io.UnsupportedEncodingException;
 
 
 @SpringBootApplication
-public class GetChineseUtilApplication {
+public class getChineseUtilApplication {
 
     public static StringBuffer result = new StringBuffer();
 
     public static void main(String[] args) {
-        SpringApplication.run(GetChineseUtilApplication.class, args);
+        SpringApplication.run(getChineseUtilApplication.class, args);
 
     }
 
