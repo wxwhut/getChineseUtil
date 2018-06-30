@@ -68,7 +68,7 @@ public class Const {
 
 
     public static boolean isValidFilePath (String filePath,Setting setting) {
-        for(int i=0;i<=setting.getFilter().length;i++) {
+        for(int i=0;i<setting.getFilter().length;i++) {
             if (filePath.contains(setting.getFilter()[i])) {
                 return false;
             }
