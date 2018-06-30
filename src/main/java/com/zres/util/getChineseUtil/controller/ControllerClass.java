@@ -1,8 +1,8 @@
 package com.zres.util.getChineseUtil.controller;
 
-import com.zres.util.getChineseUtil.service.GetChineseUtilApplication;
 import com.zres.util.getChineseUtil.bean.Setting;
 
+import com.zres.util.getChineseUtil.getChineseUtilApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ControllerClass {
-    @PostMapping(value = "/index")
+    @PostMapping("/index")
     public static void start(@ModelAttribute Setting setting){
-        GetChineseUtilApplication.start(setting);
+        getChineseUtilApplication.start(setting);
     }
 
     @GetMapping("/index")
