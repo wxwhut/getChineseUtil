@@ -2,27 +2,39 @@
 <head>
     <meta content="text/html;charset=UTF-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <script th:src="@{/jquery-3.3.1.js}" type="text/javascript"></script>
-    <script th:src="@{/js/index.js}" type="text/javascript"></script>
-    <script th:src="@{/bootstrap/js/bootstrap.js}" type="text/javascript"></script>
-    <script th:src="@{/bootstrap/js/bootstrap.bundle.js}" type="text/javascript"></script>
-    <link th:href="@{/bootstrap/css/bootstrap-theme.css}" rel="stylesheet"/>
-    <link th:href="@{/bootstrap/css/bootstrap-grid.css}" rel="stylesheet"/>
-    <link th:href="@{/bootstrap/css/bootstrap-reboot.css}" rel="stylesheet"/>
-    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
+    <script th:src="@{js/jquery-3.3.1.js}" type="text/javascript"></script>
+    <script th:src="@{js/index.js}" type="text/javascript"></script>
+    <script th:src="@{bootstrap/js/bootstrap.js}" type="text/javascript"></script>
+    <script th:src="@{bootstrap/js/bootstrap.bundle.js}" type="text/javascript"></script>
+    <link th:href="@{bootstrap/css/bootstrap-theme.css}" rel="stylesheet"/>
+    <link th:href="@{bootstrap/css/bootstrap-grid.css}" rel="stylesheet"/>
+    <link th:href="@{bootstrap/css/bootstrap-reboot.css}" rel="stylesheet"/>
+    <link th:href="@{bootstrap/css/bootstrap.css}" rel="stylesheet"/>
+    <style>
+        .border{
+            border-radius: 20px;
+            display: inline-block;
+            width:600px;
+            height: 700px;
+            margin: 40px 40px 40px 40px;
+            padding: 20px 20px 20px 20px;
+        }
+    </style>
 </head>
 <body>
 <!--/*@thymesVar id="setting" type="com.zres.util.getChineseUtil.bean.Setting"*/-->
-<form class="form-horizontal" action="#" th:action="@{/index}" th:object="${setting}" method="post">
+<form class="border border-info form-horizontal center-block" action="#" th:action="@{/index}" th:object="${setting}" method="post">
 
     <fieldset>
         <div class="control-group">
 
             <!-- Text input-->
 
-            <div class="controls">
-                <label class="control-label">查询目录</label>
-                <input type="text" placeholder="默认桌面" class="input-xlarge" id="dirPath" name="dirPath"/>
+            <div class="input-group mb-3 input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">查询目录</span>
+                </div>
+                <input type="text" placeholder="默认桌面" class="form-control" id="dirPath" name="dirPath"/>
             </div>
         </div>
 
@@ -30,50 +42,54 @@
 
             <!-- Search input-->
 
-            <div class="controls">
-                <label class="control-label">生成目录</label>
-                <input type="text" placeholder="默认桌面" class="input-xlarge search-query" id="textPath" name="textPath"/>
+            <div class="input-group mb-3 input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">生成目录</span>
+                </div>
+                <input type="text" placeholder="默认桌面" class="form-control" id="textPath" name="textPath"/>
             </div>
 
         </div>
 
-        <div class="control-group">
+        <div class="input-group mb-3 input-group-sm">
 
             <!-- Text input-->
 
-            <div class="controls">
-                <label class="control-label">生成文件名</label>
-                <input type="text" placeholder="默认fileNote.txt" class="input-xlarge" id="textName" name="textName"/>
+            <div class="input-group mb-3 input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">生成文件名</span>
+                </div>
+                <input type="text" placeholder="默认fileNote.txt" class="form-control" id="textName" name="textName"/>
             </div>
         </div>
    <div class="control-group">
         <label class="control-label">要查询的文件类型</label>
        <label class="checkbox inline">
            <input type="checkbox" id="allFile" onclick="checkAllFile()"/>
-           全选
+           全选&nbsp;
        </label>
         <!-- Multiple Checkboxes -->
-        <div class="controls" id="file" name="file">
+        <div class="input-group mb-3" id="file" name="file">
             <!-- Inline Checkboxes -->
             <label class="checkbox inline">
                 <input type="checkbox" value="JS" name="file"/>
-                JS
+                JS&nbsp;
             </label>
             <label class="checkbox inline">
                 <input type="checkbox" value="JAVA" name="file"/>
-                JAVA
+                JAVA&nbsp;
             </label>
             <label class="checkbox inline">
                 <input type="checkbox" value="XML" name="file"/>
-                XML
+                XML&nbsp;
             </label>
             <label class="checkbox inline">
                 <input type="checkbox" value="HTML" name="file"/>
-                HTML
+                HTML&nbsp;
             </label>
             <label class="checkbox inline">
                 <input type="checkbox" value="PROPERTIES" name="file"/>
-                PROPERTIES
+                PROPERTIES&nbsp;
             </label>
         </div>
     </div>
@@ -81,43 +97,57 @@
                 <label class="control-label" >过滤文件</label>
             <label class="checkbox inline">
                 <input type="checkbox" id="allFilter" onclick="checkAllFilter()"/>
-                全选
+                全选&nbsp;
             </label>
 
                 <!-- Multiple Checkboxes -->
-                <div class="controls" id="filter" name="filter">
+                <div class="input-group mb-3" id="filter" name="filter">
                     <!-- Inline Checkboxes -->
                     <label class="checkbox inline">
                         <input type="checkbox" name="filter" value="twaver"/>
-                        twaver
+                        twaver&nbsp;
                     </label>
                     <label class="checkbox inline">
                         <input type="checkbox" name="filter" value="echarts"/>
-                        echarts
+                        echarts&nbsp;
                     </label>
                     <label class="checkbox inline">
                         <input type="checkbox" name="filter" value="fish-desktop-locale"/>
-                        fish-desktop-locale
+                        fish-desktop-locale&nbsp;
                     </label>
                     <label class="checkbox inline">
                         <input type="checkbox" name="filter" value="arcgis_js_api"/>
-                        arcgis_js_api
+                        arcgis_js_api&nbsp;
                     </label>
                     <label class="checkbox inline">
                         <input type="checkbox" name="filter" value="city.data"/>
-                        city.data
+                        city.data&nbsp;
                     </label>
                     <label class="checkbox inline">
                         <input type="checkbox" name="filter" value="geoCoord.js"/>
-                        geoCoord.js
+                        geoCoord.js&nbsp;
                     </label>
                     <label class="checkbox inline">
                         <input type="checkbox" name="filter" value="layer\v3.0.3\demo.html"/>
-                        layer\v3.0.3\demo.html
+                        layer\v3.0.3\demo.html&nbsp;
                     </label>
                 </div>
             </div>
-        <button class="btn btn-outline-info btn-sm" type="submit">获取中文</button>
+        <div class="modal fade" id="load">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 模态框主体 -->
+                    <div class="modal-body">
+                        <div class="progress" style="height: 30px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%;height: 30px;">正在获取，请稍后..</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-outline-info btn-sm" type="submit" data-toggle="modal" data-target="#load">获取中文</button>
+        &nbsp;
         <button class="btn btn-outline-info btn-sm" type="reset">重置</button>
     </fieldset>
 </form>
@@ -130,21 +160,5 @@
         <!--<input class="input-file" id="fileInput" type="file"/>-->
     <!--</div>-->
 <!--</div>-->
-<script type="text/javascript">
-    function checkAllFile() {
-        var all = $('#allFile');//获取到点击全选的那个复选框的id
-        var one = $("input[name='file']");//获取到复选框的名称
-        one.map(function (a,b) {
-            b.checked=all[0].checked;
-        })
-    }
-    function checkAllFilter() {
-        var all = $('#allFilter');//获取到点击全选的那个复选框的id
-        var one = $("input[name='filter']");//获取到复选框的名称
-        one.map(function (a,b) {
-            b.checked=all[0].checked;
-        })
-    }
-</script>
 </body>
 </html>

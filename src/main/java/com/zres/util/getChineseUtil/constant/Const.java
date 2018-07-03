@@ -58,9 +58,11 @@ public class Const {
     }
 
     public static boolean isValidFileType (String fileType, Setting setting) {
-        for(int i=0;i<setting.getFile().length;i++){
-            if(setting.getFile()[i].equalsIgnoreCase(fileType)){
-                return true;
+        if(setting.getFile()!=null) {
+            for (int i = 0; i < setting.getFile().length; i++) {
+                if (setting.getFile()[i].equalsIgnoreCase(fileType)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -68,9 +70,11 @@ public class Const {
 
 
     public static boolean isValidFilePath (String filePath,Setting setting) {
-        for(int i=0;i<setting.getFilter().length;i++) {
-            if (filePath.contains(setting.getFilter()[i])) {
-                return false;
+        if(setting.getFilter()!=null) {
+            for (int i = 0; i < setting.getFilter().length; i++) {
+                if (filePath.contains(setting.getFilter()[i])) {
+                    return false;
+                }
             }
         }
         return true;
