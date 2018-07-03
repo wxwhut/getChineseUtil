@@ -39,7 +39,7 @@ public class getChineseUtilApplication {
         }
         //设置文件名，默认fileNote.txt
         if(setting.getTextName().equals("")) {
-            setting.setTextPath("\\fileNote.txt");
+            setting.setTextName("\\fileNote.txt");
         }else if(setting.getTextName().charAt(0)!='\\'){
             setting.setTextName('\\'+setting.getTextName());
         }

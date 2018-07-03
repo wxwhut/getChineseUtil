@@ -16,8 +16,10 @@ public class Setting {
     private String[] file;
     /**过滤条件*/
     private String[] filter;
-    /**其他文件和注释类型*/
-    private HashMap<String,String> other;
+    /**其他文件类型*/
+    private HashMap<String,String> otherFile;
+    /**其他过滤类型*/
+    private HashMap<String,String> otherFilter;
 
     public String getDirPath() {
         return dirPath;
@@ -59,12 +61,19 @@ public class Setting {
         this.filter = filter;
     }
 
-    public HashMap<String, String> getOther() {
-        return other;
+    public HashMap<String, String> getOtherFile() {
+        return otherFile;
     }
 
-    public void setOther(HashMap<String, String> other) {
-        this.other = other;
+    public void setOtherFile(HashMap<String, String> otherFile) {
+        this.otherFile = otherFile;
     }
 
+    public HashMap<String, String> getOtherFilter() {
+        return otherFilter;
+    }
+
+    public void setOtherFilter(HashMap<String, String> otherFilter) {
+        this.otherFilter = otherFilter;
+    }
 }
