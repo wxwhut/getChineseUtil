@@ -16,20 +16,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 @SpringBootApplication
 public class getChineseUtilApplication {
 
     public static StringBuffer result = new StringBuffer();
-
+    public static String status = new String();
     public static void main(String[] args) {
         SpringApplication.run(getChineseUtilApplication.class, args);
 
     }
 
-    public static void start(Setting setting){
+    public static String start(Setting setting){
         result = new StringBuffer();
+        status = "success";
         File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
         //设置路径和文件名，默认放在桌面
         if(setting.getDirPath().equals("")) {
@@ -53,12 +57,29 @@ public class getChineseUtilApplication {
             writer = new PrintWriter(setting.getTextPath()+setting.getTextName(), "UTF-8");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return "filePath";
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            return "encoding";
         }
+        //处理自定义文件后缀
+        List<String> list;
+        if(setting.getFile()==null){
+            list = new ArrayList<>();
+        }else{
+            List<String> l = Arrays.asList(setting.getFile());
+            list = new ArrayList(l);
+        }
+        if(setting.getOtherFile()!=null) {
+            for (int i = 0; i < setting.getOtherFile().size(); i++) {
+                list.add(setting.getOtherFile().get(i).getName());
+            }
+        }
+        setting.setFile(list.toArray(new String[list.size()]));
         readFile(setting.getDirPath(),setting);
         writer.println(result);
         writer.close();
+        return status;
     }
     public static void readFile(String dir,Setting setting) {
         File or = new File(dir);
@@ -73,6 +94,8 @@ public class getChineseUtilApplication {
                     readFile(file.getAbsolutePath(),setting);
                 }
             }
+        }else{
+            status="dirPath";
         }
     }
 
@@ -97,13 +120,31 @@ public class getChineseUtilApplication {
             if(!Const.isValidFilePath(filePath,setting)) {
                 return;
             }
+            //获取自定义文件的注释
+            String startAnnotation="";
+            String endAnnotation="";
+            String lineAnnotation="";
+            if(setting.getOtherFile()!=null) {
+                for (int i = 0; i < setting.getOtherFile().size(); i++) {
+                    if (setting.getOtherFile().get(i).getName().equalsIgnoreCase(fileType)) {
+                        startAnnotation = setting.getOtherFile().get(i).getStart();
+                        endAnnotation = setting.getOtherFile().get(i).getEnd();
+                        lineAnnotation = setting.getOtherFile().get(i).getLine();
+                    }
+                }
+            }
             boolean isBetweenAnnotation = false;
             while(line != null) {
                 lineNum ++;
                 int lineLength = line.length();
                 //过滤掉注释部分内容
                 if(isBetweenAnnotation) {
-                    int annotationEndIndex = line.indexOf(Const.getAnnotationEnd(fileType));
+                    int annotationEndIndex;
+                    if(endAnnotation.equals("")){
+                         annotationEndIndex = line.indexOf(Const.getAnnotationEnd(fileType));
+                    }else{
+                         annotationEndIndex = line.indexOf(endAnnotation);
+                    }
                     if(annotationEndIndex >= 0) {
                         isBetweenAnnotation = false;
                         line = line.substring(annotationEndIndex + 1, lineLength);
@@ -112,8 +153,18 @@ public class getChineseUtilApplication {
                         continue;
                     }
                 }else{
-                    int annotationBeginIndex = line.indexOf(Const.getAnnotationBegin(fileType));
-                    int annotationWithNoEndIndex = line.indexOf(Const.getAnnotationWithNoEnd(fileType));
+                    int annotationBeginIndex;
+                    int annotationWithNoEndIndex;
+                    if(startAnnotation.equals("")){
+                        annotationBeginIndex = line.indexOf(Const.getAnnotationBegin(fileType));
+                    }else{
+                        annotationBeginIndex = line.indexOf(startAnnotation);
+                    }
+                    if (lineAnnotation.equals("")){
+                        annotationWithNoEndIndex = line.indexOf(Const.getAnnotationWithNoEnd(fileType));
+                    }else{
+                        annotationWithNoEndIndex = line.indexOf(lineAnnotation);
+                    }
                     int minBeginIndex = 100000;
                     if(annotationBeginIndex < 0) {
                         annotationBeginIndex = 100000;
@@ -142,22 +193,25 @@ public class getChineseUtilApplication {
                 int chineseCharBegin = 0;
                 int chineseCharEnd = 0;
                 boolean isContinue = false;
-                for(int j=0; j<lineLength; j++) {
-                    if(RegexUtil.isChineseCharacter(line.charAt(j)) && !isContinue) {
-                        chineseCharBegin = j;
-                        isContinue = true;
-                    }else if((!RegexUtil.isChineseCharacter(line.charAt(j)) && isContinue)) {
-                        chineseCharEnd = j;
-                        isContinue = false;
-                        String chineseCharStr = line.substring(chineseCharBegin,chineseCharEnd);
-                        result.append(chineseCharStr + "\t" + filePath + "："+ lineNum + "\n");
-                    }else if(RegexUtil.isChineseCharacter(line.charAt(j)) && isContinue && j == lineLength - 1) {
-                        chineseCharEnd = j;
-                        isContinue = false;
-                        String chineseCharStr = line.substring(chineseCharBegin,chineseCharEnd + 1);
-                        result.append(chineseCharStr + "\t" + filePath + "："+ lineNum + "\n");
+                    for (int j = 0; j < lineLength; j++) {
+                        if (RegexUtil.isChineseCharacter(line.charAt(j)) && !isContinue) {
+                            chineseCharBegin = j;
+                            isContinue = true;
+                            if(j==lineLength-1){
+                                result.append(line.charAt(lineLength-1) + "\t" + filePath + "：第"+ lineNum + "行\n");
+                            }
+                        } else if ((!RegexUtil.isChineseCharacter(line.charAt(j)) && isContinue)) {
+                            chineseCharEnd = j;
+                            isContinue = false;
+                            String chineseCharStr = line.substring(chineseCharBegin, chineseCharEnd);
+                            result.append(chineseCharStr + "\t" + filePath + "：第" + lineNum + "行\n");
+                        } else if (RegexUtil.isChineseCharacter(line.charAt(j)) && isContinue && j == lineLength - 1) {
+                            chineseCharEnd = j;
+                            isContinue = false;
+                            String chineseCharStr = line.substring(chineseCharBegin, chineseCharEnd + 1);
+                            result.append(chineseCharStr + "\t" + filePath + "：第" + lineNum + "行\n");
+                        }
                     }
-                }
                 line = br.readLine();
             }
         } catch (IOException e) {

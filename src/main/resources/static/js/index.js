@@ -96,9 +96,9 @@ function getChinese() {
     event.preventDefault();
     var options = {
         target:"#form",
-        success:function () {
+        success:function (data) {
             $("#load").remove();
-            alert("提交成功2");
+            alert("获取成功!");
             window.location.reload();
         },
     };
