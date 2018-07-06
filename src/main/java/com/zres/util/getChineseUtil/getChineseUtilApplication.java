@@ -29,6 +29,7 @@ public class getChineseUtilApplication {
     }
 
     public static void start(Setting setting){
+        result = new StringBuffer();
         File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
         //设置路径和文件名，默认放在桌面
         if(setting.getDirPath().equals("")) {

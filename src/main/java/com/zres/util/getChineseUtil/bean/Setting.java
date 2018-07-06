@@ -1,6 +1,6 @@
 package com.zres.util.getChineseUtil.bean;
 
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by wang xu on 2018/6/29.
@@ -17,9 +17,7 @@ public class Setting {
     /**过滤条件*/
     private String[] filter;
     /**其他文件类型*/
-    private HashMap<String,String> otherFile;
-    /**其他过滤类型*/
-    private HashMap<String,String> otherFilter;
+    private List<Detail> otherFile;
 
     public String getDirPath() {
         return dirPath;
@@ -61,19 +59,11 @@ public class Setting {
         this.filter = filter;
     }
 
-    public HashMap<String, String> getOtherFile() {
+    public List<Detail> getOtherFile() {
         return otherFile;
     }
 
-    public void setOtherFile(HashMap<String, String> otherFile) {
+    public void setOtherFile(List<Detail> otherFile) {
         this.otherFile = otherFile;
-    }
-
-    public HashMap<String, String> getOtherFilter() {
-        return otherFilter;
-    }
-
-    public void setOtherFilter(HashMap<String, String> otherFilter) {
-        this.otherFilter = otherFilter;
     }
 }
