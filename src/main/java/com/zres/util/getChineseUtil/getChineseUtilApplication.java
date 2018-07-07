@@ -216,6 +216,7 @@ public class getChineseUtilApplication {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            status="error";
         }
 
 

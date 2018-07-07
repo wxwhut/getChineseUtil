@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ControllerClass {
-    @PostMapping("/index")
+    @RequestMapping(value = "/index",method = RequestMethod.POST)
     @ResponseBody
     public static String start(@ModelAttribute Setting setting){
         return getChineseUtilApplication.start(setting);

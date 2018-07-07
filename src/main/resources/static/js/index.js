@@ -41,6 +41,36 @@ $(document).ready(function () {
         })
     });
     num=0;
+    var options = {
+        success:function (data) {
+            if(data=="success") {
+                alert("获取成功!");
+                window.location.reload();
+            }else {
+                    if(data!="error"){
+                        $('#load').modal('hide');
+                        $('#load').one('shown.bs.modal',function () {
+                            $('#load').modal('hide');
+                        })
+                    alert("获取失败，请检查参数!");
+                    if(data=="dirPath"){
+                        $("#dirPath").addClass("has-error");
+                    }else if (data=="filePath"){
+                        $("#textPath").addClass("has-error");
+                        }
+                    }else{
+                        alert("抱歉,服务器出错了");
+                    }
+                }
+            },
+    };
+    $("#form").submit(function () {
+        event.preventDefault();
+        $("#load").modal("show");
+        $("#form").ajaxSubmit(options);
+    });
+    return false;
+
 });
 window.onresize = function(){
     $("#form").css("margin-left",($(window).width()-$("#form").width())/2);
@@ -91,18 +121,4 @@ function addFile() {
                 </div>`;
     $("#otherFile").append(template);
     num++;
-}
-function getChinese() {
-    event.preventDefault();
-    var options = {
-        target:"#form",
-        success:function (data) {
-            $("#load").remove();
-            alert("获取成功!");
-            window.location.reload();
-        },
-    };
-        $("#form").ajaxSubmit(options);
-        return false;
-
 }
