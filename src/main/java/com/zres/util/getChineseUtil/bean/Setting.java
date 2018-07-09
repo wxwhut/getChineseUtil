@@ -18,6 +18,12 @@ public class Setting {
     private String[] filter;
     /**其他文件类型*/
     private List<Detail> otherFile;
+    /**SVN用户名*/
+    private String userName;
+    /**SVN密码*/
+    private String password;
+    /**SVN路径*/
+    private String svnUrl;
 
     public String getDirPath() {
         return dirPath;
@@ -65,5 +71,29 @@ public class Setting {
 
     public void setOtherFile(List<Detail> otherFile) {
         this.otherFile = otherFile;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSvnUrl() {
+        return svnUrl;
+    }
+
+    public void setSvnUrl(String svnUrl) {
+        this.svnUrl = svnUrl;
     }
 }
