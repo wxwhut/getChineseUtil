@@ -24,8 +24,8 @@ public class Setting {
     private String password;
     /**SVN路径*/
     private String svnUrl;
-    /**查询路径类型 0:本机 1:SVN */
-    private int style;
+    /**查询路径类型 0:本机 1:SVN 缓存 2:SVN 在线*/
+    private String type;
 
     public String getDirPath() {
         return dirPath;
@@ -99,11 +99,11 @@ public class Setting {
         this.svnUrl = svnUrl;
     }
 
-    public int getStyle() {
-        return style;
+    public String getType() {
+        return type;
     }
 
-    public void setStyle(int style) {
-        this.style = style;
+    public void setType(String type) {
+        this.type = type;
     }
 }

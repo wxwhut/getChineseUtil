@@ -74,9 +74,19 @@ public class getChineseUtilApplication {
             }
         }
         setting.setFile(list.toArray(new String[list.size()]));
-        //readFile(setting.getDirPath(),setting);
-        SVNRepository svnRepository=SvnKitUtil.start(setting);
-        readSvnFile(svnRepository,"",setting);
+        if(setting.getType().equals("0")){
+            readFile(setting.getDirPath(),setting);
+        }else if(setting.getType().equals("2")){
+            SVNRepository svnRepository = SvnKitUtil.start(setting);
+            if (svnRepository==null){
+                status = "SVN";
+            }else{
+            readSvnFile(svnRepository, "", setting);
+            }
+        }else if(setting.getType().equals("1")){
+            SvnKitUtil.downloadModel(setting);
+            readFile(setting.getTextPath()+"/getChineseSVNCache",setting);
+        }
         writer.println(result);
         writer.close();
         return status;

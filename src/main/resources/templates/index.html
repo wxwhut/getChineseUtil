@@ -28,15 +28,25 @@
 <form class="border border-info form-horizontal center-block" th:action="@{/index}" th:object="${setting}" method="post" id="form">
 
     <fieldset>
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs" role="tablist" >
             <li class="nav-item">
-                <a class="nav-link active" href="#home" role="tab" data-toggle="tab">Home</a>
+                <a class="nav-link active" href="#" role="tab" data-toggle="tab" onclick="server()">获取服务器中文</a>
             </li>
+            &nbsp;&nbsp;
             <li class="nav-item">
-                <a class="nav-link" href="#profile" role="tab" data-toggle="tab">Profile</a>
+                <a class="nav-link" href="#p" role="tab" data-toggle="tab" onclick="downloadSVN()">获取SVN中文(缓存式)</a>
+            </li>
+            &nbsp;&nbsp;
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="tab" data-toggle="tab" onclick="onlineSVN()">获取SVN中文(在线式)</a>
             </li>
         </ul>
 
+<br/>
+
+        <div style="display:none">
+                <input type="text" placeholder="0" value="0" class="form-control" name="type"/>
+        </div>
         <div class="control-group" >
 
             <!-- Text input-->
@@ -51,26 +61,6 @@
 
             <!-- Search input-->
 
-            <div class="input-group mb-3 input-group-sm" id="userName" style="display: none">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">SVN用户名</span>
-                </div>
-                <input type="text" class="form-control"  name="userName"/>
-            </div>
-        </div>
-        <div class="control-group" style="display: none">
-            <!-- Search input-->
-            <div class="input-group mb-3 input-group-sm" id="password">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">SVN密码</span>
-                </div>
-                <input type="text" class="form-control"  name="password"/>
-            </div>
-        </div>
-        <div class="control-group" >
-
-            <!-- Search input-->
-
             <div class="input-group mb-3 input-group-sm" id="textPath">
                 <div class="input-group-prepend">
                     <span class="input-group-text">生成目录</span>
@@ -78,15 +68,34 @@
                 <input type="text" placeholder="默认桌面" class="form-control"  name="textPath"/>
             </div>
         </div>
+        <div class="control-group" >
         <div class="input-group mb-3 input-group-sm">
-
             <!-- Text input-->
-
-            <div class="input-group mb-3 input-group-sm">
                 <div class="input-group-prepend">
                     <span class="input-group-text">生成文件名</span>
                 </div>
                 <input type="text" placeholder="默认fileNote.txt" class="form-control" id="textName" name="textName"/>
+        </div>
+        </div>
+
+        <div class="control-group" >
+
+            <!-- Search input-->
+
+            <div class="input-group mb-3 input-group-sm" id="userName" style="display: none">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">SVN用户名</span>
+                </div>
+                <input type="text" class="form-control" placeholder="SVN用户名" name="userName"/>
+            </div>
+        </div>
+        <div class="control-group" >
+            <!-- Search input-->
+            <div class="input-group mb-3 input-group-sm" id="password" style="display: none">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">SVN密码</span>
+                </div>
+                <input type="text" class="form-control" placeholder="SVN密码" name="password"/>
             </div>
         </div>
    <div class="control-group">

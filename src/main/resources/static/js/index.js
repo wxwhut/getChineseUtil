@@ -122,3 +122,22 @@ function addFile() {
     $("#otherFile").append(template);
     num++;
 }
+function server() {
+    $("#userName").hide();
+    $("#password").hide();
+    $("input[name='dirPath']").attr("placeholder","默认桌面");
+    $("input[name='type']").val("0");
+
+}
+function downloadSVN() {
+    $("#userName").show();
+    $("#password").show();
+    $("input[name='dirPath']").attr("placeholder","输入完整SVN地址");
+    $("input[name='type']").val("1");
+}
+function onlineSVN() {
+    $("#userName").show();
+    $("#password").show();
+    $("input[name='dirPath']").attr("placeholder","输入完整SVN地址");
+    $("input[name='type']").val("2");
+}

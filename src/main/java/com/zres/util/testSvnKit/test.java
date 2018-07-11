@@ -15,7 +15,7 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 public class test {
     public static void main(String[] args){
         //1.根据访问协议初始化工厂
-        DAVRepositoryFactory.setup();;
+        DAVRepositoryFactory.setup();
         //2.初始化仓库
         String url = "http://10.45.53.12:8484/svn/rescloud/trunk/resmaster/product/res-device";
         SVNRepository svnRepository = null;
