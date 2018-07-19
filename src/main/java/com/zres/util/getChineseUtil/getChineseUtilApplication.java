@@ -23,15 +23,15 @@ import java.util.*;
 public class getChineseUtilApplication {
 
     public static StringBuffer result = new StringBuffer();
-    public static String status = new String();
+    /**记录运行状态*/
+    public static ArrayList<String> status = new ArrayList<>();
     public static void main(String[] args) {
         SpringApplication.run(getChineseUtilApplication.class, args);
-
     }
 
-    public static String start(Setting setting){
+    public static ArrayList<String> start(Setting setting){
         result = new StringBuffer();
-        status = "success";
+        status = new ArrayList<>();
         File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
         //设置路径和文件名，默认放在桌面
         if(setting.getDirPath().equals("")) {
@@ -51,15 +51,7 @@ public class getChineseUtilApplication {
             setting.setTextName(setting.getTextName()+".txt");
         }
         PrintWriter writer = null;
-        try {
-            writer = new PrintWriter(setting.getTextPath()+setting.getTextName(), "UTF-8");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return "filePath";
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "encoding";
-        }
+        writer = setup(setting);
         //处理自定义文件后缀
         List<String> list;
         if(setting.getFile()==null){
@@ -79,7 +71,8 @@ public class getChineseUtilApplication {
         }else if(setting.getType().equals("2")){
             SVNRepository svnRepository = SvnKitUtil.start(setting);
             if (svnRepository==null){
-                status = "SVN";
+                status.add("SVN");
+                return status;
             }else{
             readSvnFile(svnRepository, "", setting);
             }
@@ -87,9 +80,26 @@ public class getChineseUtilApplication {
             SvnKitUtil.downloadModel(setting);
             readFile(setting.getTextPath()+"/getChineseSVNCache",setting);
         }
-        writer.println(result);
-        writer.close();
+        if(writer!=null) {
+            writer.println(result);
+            writer.close();
+        }
         return status;
+    }
+    public static PrintWriter setup(Setting setting){
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(setting.getTextPath()+setting.getTextName(), "UTF-8");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            status.add("filePath");
+            return writer;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            status.add("encoding") ;
+            return writer;
+        }
+        return writer;
     }
     public static void readFile(String dir,Setting setting) {
         File or = new File(dir);
@@ -105,7 +115,7 @@ public class getChineseUtilApplication {
                 }
             }
         }else{
-            status="dirPath";
+            status.add("dirPath");
         }
     }
     //SVN路径
@@ -261,7 +271,7 @@ public class getChineseUtilApplication {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            status="error";
+            status.add("error");
         }
     }
     public static void parseSvnFile(FileInfo fileInfo,Setting setting){
@@ -373,7 +383,7 @@ public class getChineseUtilApplication {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            status="SVNERROR";
+            status.add("SVNERROR");
         }
     }
 }

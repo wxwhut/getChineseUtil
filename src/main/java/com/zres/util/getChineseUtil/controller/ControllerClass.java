@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by wang xu on 2018/6/29.
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class ControllerClass {
     @RequestMapping(value = "/index",method = RequestMethod.POST)
     @ResponseBody
-    public static String start(@ModelAttribute Setting setting){
+    public static ArrayList<String> start(@ModelAttribute Setting setting){
         return getChineseUtilApplication.start(setting);
     }
 

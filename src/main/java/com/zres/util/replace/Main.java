@@ -4,6 +4,7 @@ import java.io.*;
 
 /**
  * Created by wang xu on 2018/7/10.
+ * 用来替换常量类里的中文
  */
 public class Main {
     private static String dirPath="C:\\Users\\lenovo\\Desktop\\res-device";

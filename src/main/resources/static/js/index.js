@@ -43,21 +43,27 @@ $(document).ready(function () {
     num=0;
     var options = {
         success:function (data) {
-            if(data=="success") {
+            if(data.length==0) {
                 alert("获取成功!");
                 window.location.reload();
             }else {
-                    if(data!="error"){
-                        $('#load').modal('hide');
-                        $('#load').one('shown.bs.modal',function () {
-                            $('#load').modal('hide');
-                        })
-                    alert("获取失败，请检查参数!");
-                    if(data=="dirPath"){
-                        $("#dirPath").addClass("has-error");
-                    }else if (data=="filePath"){
-                        $("#textPath").addClass("has-error");
+                    $('#load').modal('hide');
+                    $('#load').one('shown.bs.modal',function () {
+                    $('#load').modal('hide');
+                    });
+                    var flag= false;
+                    for(var i=0;i<data.length;i++){
+                        if(data[i]=="dirPath"){
+                            $("#dirPath").addClass("has-error");
+                            flag=true;
                         }
+                        if(data[i]=="filePath"){
+                            $("#textPath").addClass("has-error");
+                            flag=true;
+                        }
+                    }
+                    if(flag){
+                        alert("获取失败，请检查参数!");
                     }else{
                         alert("抱歉,服务器出错了");
                     }
@@ -67,6 +73,9 @@ $(document).ready(function () {
     $("#form").submit(function () {
         event.preventDefault();
         $("#load").modal("show");
+        $(".has-error").removeClass("has-error");
+        $("#dirPath").removeClass("");
+        $("#textPath")
         $("#form").ajaxSubmit(options);
     });
     return false;
