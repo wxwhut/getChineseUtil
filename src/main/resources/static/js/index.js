@@ -41,6 +41,7 @@ $(document).ready(function () {
         })
     });
     num=0;
+    var oldType=  $("input[name='type']").val();
     var options = {
         success:function (data) {
             if(data.length==0) {
@@ -67,6 +68,7 @@ $(document).ready(function () {
                     }else{
                         alert("抱歉,服务器出错了");
                     }
+                $("input[name='type']").val(oldType);
                 }
             },
     };

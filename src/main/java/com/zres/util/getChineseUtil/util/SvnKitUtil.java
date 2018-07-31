@@ -3,6 +3,7 @@ package com.zres.util.getChineseUtil.util;
 import com.zres.util.getChineseUtil.bean.Setting;
 import com.zres.util.testSvnKit.bean.RepositoryInfo;
 import com.zres.util.testSvnKit.option.Option;
+import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNNodeKind;
 import org.tmatesoft.svn.core.SVNURL;
@@ -83,16 +84,22 @@ public class SvnKitUtil {
                 (DefaultSVNOptions) options, userName, passwd);
         return clientManager;
     }
-    public static void downloadModel(Setting setting){
-        File outDir=new File(setting.getTextPath()+"/getChineseSVNCache");
-        outDir.mkdirs();//创建目录
-        SVNUpdateClient updateClient=setUpSVNClient(setting.getUserName(),setting.getPassword()).getUpdateClient();
+    public static void downloadModel(Setting setting) throws SVNException {
+        String[] path = setting.getDirPath().split("\\/").length>0?setting.getDirPath().split("\\/"):setting.getDirPath().split("\\\\");
+        StringBuffer pathName = new StringBuffer();
+        pathName.append(setting.getTextPath()).append("/getChineseSVNCache");
+        for(int i=3;i<path.length;i++){
+            pathName.append("/"+path[i]);
+        }
+        File outDir = new File(pathName.toString());
+        SVNUpdateClient updateClient = setUpSVNClient(setting.getUserName(), setting.getPassword()).getUpdateClient();
         updateClient.setIgnoreExternals(false);
-        try {
+        if(outDir.exists()){
+            updateClient.doUpdate(outDir,SVNRevision.HEAD,SVNDepth.INFINITY ,true, true);
+        }else {
+            outDir.mkdirs();//创建目录
             SVNURL repositoryOptUrl = SVNURL.parseURIEncoded(setting.getDirPath());
-            updateClient.doExport(repositoryOptUrl, outDir, SVNRevision.HEAD, SVNRevision.HEAD, "downloadModel",true,true);
-        } catch (SVNException e) {
-            e.printStackTrace();
+            updateClient.doCheckout(repositoryOptUrl, outDir, SVNRevision.HEAD, SVNRevision.HEAD, SVNDepth.INFINITY, true);
         }
     }
 
