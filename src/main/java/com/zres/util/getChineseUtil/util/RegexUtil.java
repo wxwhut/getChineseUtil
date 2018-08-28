@@ -1,7 +1,7 @@
 package com.zres.util.getChineseUtil.util;
 
 /**
- * Created by tallenty on 2018/6/7.
+ * Created by wang xu on 2018/6/7.
  */
 public class RegexUtil {
     public static String getFileType(String filePath) {
