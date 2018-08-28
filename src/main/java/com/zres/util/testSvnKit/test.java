@@ -17,7 +17,7 @@ public class test {
         //1.根据访问协议初始化工厂
         DAVRepositoryFactory.setup();
         //2.初始化仓库
-        String url = "";
+        String url = "url地址";
         SVNRepository svnRepository = null;
         try {
             svnRepository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
@@ -25,8 +25,8 @@ public class test {
             e.printStackTrace();
         }
         //3.创建一个访问的权限
-        String username="";
-        String password="";
+        String username="svn用户名";
+        String password="svn密码";
         ISVNAuthenticationManager authenticationManager = SVNWCUtil.createDefaultAuthenticationManager(username,password);
         svnRepository.setAuthenticationManager(authenticationManager);
 
