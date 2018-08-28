@@ -17,7 +17,7 @@ public class test {
         //1.根据访问协议初始化工厂
         DAVRepositoryFactory.setup();
         //2.初始化仓库
-        String url = "http://10.45.53.12:8484/svn/rescloud/trunk/resmaster/product/res-device";
+        String url = "";
         SVNRepository svnRepository = null;
         try {
             svnRepository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(url));
@@ -25,8 +25,8 @@ public class test {
             e.printStackTrace();
         }
         //3.创建一个访问的权限
-        String username="wang.xu2";
-        String password="1234";
+        String username="";
+        String password="";
         ISVNAuthenticationManager authenticationManager = SVNWCUtil.createDefaultAuthenticationManager(username,password);
         svnRepository.setAuthenticationManager(authenticationManager);
 
