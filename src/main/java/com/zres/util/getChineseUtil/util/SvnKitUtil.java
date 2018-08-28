@@ -25,7 +25,7 @@ public class SvnKitUtil {
     //1.根据访问协议初始化工厂
         DAVRepositoryFactory.setup();;
     //2.初始化仓库
-    //String url = "http://10.45.53.12:8484/svn/rescloud/trunk/resmaster/product/res-device";
+    //String url = "svn路径";
     SVNRepository svnRepository= null;
       try {
         svnRepository = SVNRepositoryFactory.create(SVNURL.parseURIEncoded(setting.getDirPath()));
