@@ -3,7 +3,7 @@ package com.zres.util.getChineseUtil.constant;
 import com.zres.util.getChineseUtil.bean.Setting;
 
 /**
- * Created by tallenty on 2018/6/7.
+ * Created by wang xu on 2018/6/7.
  */
 public class Const {
     public static final String JS = "js";
